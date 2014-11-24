@@ -10,18 +10,43 @@ import java.util.TimerTask;
  * model has changed, and they should take appropriate actions.
  * 
  * @author David Matuszek
- * @author <Your name goes here>
- * @author <Your name goes here>
+ * @author Josh Taylor
+ * @author Ted Fujimoto
  */
 public class Model extends Observable {
     public final int BALL_SIZE = 20;
-    private int xPosition = 0;
-    private int yPosition = 0;
+    public int numObjects = 2;
+    private int[] xPosition;
+    private int[] yPosition;
     private int xLimit, yLimit;
-    private int xDelta = 6;
-    private int yDelta = 4;
+    private int[] xDelta;
+    private int[] yDelta;
     private Timer timer;
+    private Figure[] figures;
 
+    
+    Model () {
+    	xPosition = new int[numObjects];
+    	yPosition = new int[numObjects];
+    	xDelta = new int[numObjects];
+    	yDelta = new int[numObjects];
+    	for (int i = 0; i < xDelta.length; i++) {
+    		xDelta[i] = 6;
+    		yDelta[i] = 4;
+    	}
+    	setInitialPositions();
+    }
+    
+    /**
+     * Sets the initial positions of the objects
+     */
+    private void setInitialPositions() {
+    	xPosition[0] = 0;
+    	xPosition[1] = 50;
+    	yPosition[0] = 0;
+    	yPosition[1] = 100;
+    }
+    
     /**
      * Sets the "walls" that the ball should bounce off from.
      * 
@@ -31,22 +56,26 @@ public class Model extends Observable {
     public void setLimits(int xLimit, int yLimit) {
         this.xLimit = xLimit - BALL_SIZE;
         this.yLimit = yLimit - BALL_SIZE;
-        xPosition = Math.min(xPosition, xLimit);
-        yPosition = Math.min(yPosition, yLimit);
+        for (int x = 0; x < xPosition.length; x++) {
+        	xPosition[x] = Math.min(xPosition[x], xLimit);
+        }
+        for (int y = 0; y < yPosition.length; y++) {
+        	yPosition[y] = Math.min(yPosition[y], yLimit);
+        }
     }
 
     /**
      * @return The balls X position.
      */
-    public int getX() {
-        return xPosition;
+    public int getX(int element) {
+        return xPosition[element];
     }
 
     /**
      * @return The balls Y position.
      */
-    public int getY() {
-        return yPosition;
+    public int getY(int element) {
+        return yPosition[element];
     }
     
     /**
@@ -72,16 +101,18 @@ public class Model extends Observable {
      */
     public void makeOneStep() {
         // Do the work
-        xPosition += xDelta;
-        if (xPosition < 0 || xPosition >= xLimit) {
-            xDelta = -xDelta;
-            xPosition += xDelta;
-        }
-        yPosition += yDelta;
-        if (yPosition < 0 || yPosition >= yLimit) {
-            yDelta = -yDelta;
-            yPosition += yDelta;
-        }
+    	for (int i = 0; i < xPosition.length; i++) {
+    		xPosition[i] += xDelta[i];
+        	if (xPosition[i] < 0 || xPosition[i] >= xLimit) {
+        		xDelta[i] = -xDelta[i];
+        		xPosition[i] += xDelta[i];
+        	}
+        	yPosition[i] += yDelta[i];
+        	if (yPosition[i] < 0 || yPosition[i] >= yLimit) {
+        		yDelta[i] = -yDelta[i];
+        		yPosition[i] += yDelta[i];
+        	}
+    	}
         // Notify observers
         setChanged();
         notifyObservers();
