@@ -110,12 +110,12 @@ public abstract class Figure {
      */
 	public void makeOneStep() {
 		setXPosition(getXPosition() + getXDelta());
-    	if (getXPosition() < 0 || getXPosition() >= xLimit) {
+    	if (getXPosition() < 0 || getXPosition() >= getXLimit()) {
     		setXDelta(-1 * getXDelta());
     		setXPosition(getXPosition() + getXDelta());
     	}
     	setYPosition(getYPosition() + getYDelta());
-    	if (getYPosition() < 0 || getYPosition() >= yLimit) {
+    	if (getYPosition() < 0 || getYPosition() >= getYLimit()) {
     		setYDelta(-1 * getYDelta());
     		setYPosition(getYPosition() + getYDelta());
     	}

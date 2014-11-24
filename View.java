@@ -41,8 +41,14 @@ public class View extends JPanel implements Observer {
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.red);
         for (int i = 0; i < model.numObjects; i++) {
-	        g.fillOval(model.getX(i), model.getY(i),
-	                model.BALL_SIZE, model.BALL_SIZE);
+	        if (model.getFigure(i) instanceof Ball) {
+	        	g.fillOval(model.getX(i), model.getY(i),
+	        			model.BALL_SIZE, model.BALL_SIZE);
+	        }
+	        if (model.getFigure(i) instanceof Rectangle) {
+	        	g.fillRect(model.getX(i), model.getY(i),
+	        			model.RECT_WIDTH, model.RECT_HEIGHT);
+	        }
         }
     }
 
