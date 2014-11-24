@@ -37,17 +37,24 @@ public class View extends JPanel implements Observer {
      */
     @Override
     public void paint(Graphics g) {
+    	Figure thisFigure;
+    	Triangle tri;
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.red);
         for (int i = 0; i < model.numObjects; i++) {
-	        if (model.getFigure(i) instanceof Ball) {
-	        	g.fillOval(model.getX(i), model.getY(i),
+        	thisFigure = model.getFigure(i);
+	        if (thisFigure instanceof Ball) {
+	        	g.fillOval(thisFigure.getXPosition(), thisFigure.getYPosition(),
 	        			model.BALL_SIZE, model.BALL_SIZE);
 	        }
-	        if (model.getFigure(i) instanceof Rectangle) {
+	        else if (thisFigure instanceof Rectangle) {
 	        	g.fillRect(model.getX(i), model.getY(i),
 	        			model.RECT_WIDTH, model.RECT_HEIGHT);
+	        }
+	        else if (thisFigure instanceof Triangle) {
+	        	tri = (Triangle) thisFigure;
+	        	g.fillPolygon(tri.getXCoords(), tri.getYCoords(), 3);
 	        }
         }
     }
