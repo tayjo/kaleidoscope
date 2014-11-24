@@ -16,35 +16,34 @@ import java.util.TimerTask;
 public class Model extends Observable {
     public final int BALL_SIZE = 20;
     public int numObjects = 2;
-    private int[] xPosition;
-    private int[] yPosition;
-    private int xLimit, yLimit;
-    private int[] xDelta;
-    private int[] yDelta;
     private Timer timer;
     private Figure[] figures;
 
     
     Model () {
-    	xPosition = new int[numObjects];
-    	yPosition = new int[numObjects];
-    	xDelta = new int[numObjects];
-    	yDelta = new int[numObjects];
-    	for (int i = 0; i < xDelta.length; i++) {
-    		xDelta[i] = 6;
-    		yDelta[i] = 4;
+    	figures = new Figure[2];
+    	for (int i = 0; i < numObjects; i++) {
+    		figures[i] = new Ball(BALL_SIZE);
     	}
     	setInitialPositions();
+    	setInitialVelocities();
     }
     
     /**
      * Sets the initial positions of the objects
      */
     private void setInitialPositions() {
-    	xPosition[0] = 0;
-    	xPosition[1] = 50;
-    	yPosition[0] = 0;
-    	yPosition[1] = 100;
+    	figures[0].setXPosition(0);
+    	figures[1].setXPosition(50);
+    	figures[0].setYPosition(0);
+    	figures[1].setYPosition(100);
+    }
+    
+    private void setInitialVelocities() {
+    	figures[0].setXDelta(6);
+    	figures[0].setYDelta(4);
+    	figures[1].setXDelta(2);
+    	figures[1].setYDelta(8);
     }
     
     /**
@@ -54,13 +53,8 @@ public class Model extends Observable {
      * @param yLimit The position (in pixels) of the floor.
      */
     public void setLimits(int xLimit, int yLimit) {
-        this.xLimit = xLimit - BALL_SIZE;
-        this.yLimit = yLimit - BALL_SIZE;
-        for (int x = 0; x < xPosition.length; x++) {
-        	xPosition[x] = Math.min(xPosition[x], xLimit);
-        }
-        for (int y = 0; y < yPosition.length; y++) {
-        	yPosition[y] = Math.min(yPosition[y], yLimit);
+        for (int i = 0; i < numObjects; i++) {
+        	figures[i].setLimits(xLimit, yLimit);
         }
     }
 
@@ -68,14 +62,14 @@ public class Model extends Observable {
      * @return The balls X position.
      */
     public int getX(int element) {
-        return xPosition[element];
+        return figures[element].getXPosition();
     }
 
     /**
      * @return The balls Y position.
      */
     public int getY(int element) {
-        return yPosition[element];
+        return figures[element].getYPosition();
     }
     
     /**
@@ -96,23 +90,14 @@ public class Model extends Observable {
     }
     
     /**
-     * Tells the ball to advance one step in the direction that it is moving.
-     * If it hits a wall, its direction of movement changes.
+     * Tells the figures to advance one step in the direction that they are moving.
+     * If they hit a wall, their direction of movement changes.
      */
     public void makeOneStep() {
         // Do the work
-    	for (int i = 0; i < xPosition.length; i++) {
-    		xPosition[i] += xDelta[i];
-        	if (xPosition[i] < 0 || xPosition[i] >= xLimit) {
-        		xDelta[i] = -xDelta[i];
-        		xPosition[i] += xDelta[i];
-        	}
-        	yPosition[i] += yDelta[i];
-        	if (yPosition[i] < 0 || yPosition[i] >= yLimit) {
-        		yDelta[i] = -yDelta[i];
-        		yPosition[i] += yDelta[i];
-        	}
-    	}
+		for (int i = 0; i < numObjects; i++) {
+			figures[i].makeOneStep();
+		}
         // Notify observers
         setChanged();
         notifyObservers();
