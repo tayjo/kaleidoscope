@@ -21,8 +21,8 @@ import javax.swing.JPanel;
  * menu items, etc.)
  * 
  * @author David Matuszek
- * @author <Your name goes here>
- * @author <Your name goes here>
+ * @author Josh Taylor
+ * @author Ted Fujimoto
  */
 public class Controller extends JFrame {
     JPanel buttonPanel = new JPanel();
