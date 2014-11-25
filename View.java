@@ -38,6 +38,8 @@ public class View extends JPanel implements Observer {
     @Override
     public void paint(Graphics g) {
     	Figure thisFigure;
+    	Ball ball;
+    	Rectangle rect;
     	Triangle tri;
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -45,8 +47,8 @@ public class View extends JPanel implements Observer {
         for (int i = 0; i < model.numObjects; i++) {
         	thisFigure = model.getFigure(i);
 	        if (thisFigure instanceof Ball) {
-	        	g.fillOval(thisFigure.getXPosition(), thisFigure.getYPosition(),
-	        			model.BALL_SIZE, model.BALL_SIZE);
+	        	ball = (Ball) thisFigure;
+	        	paintBall(g, ball);
 	        }
 	        else if (thisFigure instanceof Rectangle) {
 	        	g.fillRect(model.getX(i), model.getY(i),
@@ -59,6 +61,29 @@ public class View extends JPanel implements Observer {
         }
     }
 
+    private void paintBall(Graphics g, Ball ball) {
+    	int x = ball.getXPosition();
+    	int y = ball.getYPosition();
+    	int negX = getNegativeX(x);
+    	int negY = getNegativeY(y);
+    	g.fillOval(x, y, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(negX, y, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(x, negY, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(negX, negY, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(y, x, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(negY, x, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(y, negX, model.BALL_SIZE, model.BALL_SIZE);
+    	g.fillOval(negY, negX, model.BALL_SIZE, model.BALL_SIZE);
+    }
+    
+    private int getNegativeX(int x) {
+    	return getWidth() - x;
+    }
+    
+    private int getNegativeY(int y) {
+    	return getHeight() - y;
+    }
+    
     /**
      * When an Observer notifies Observers (and this View is an Observer),
      * this is the method that gets called.

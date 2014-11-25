@@ -20,7 +20,7 @@ public class Model extends Observable {
     public final int RECT_HEIGHT = 20;
     public final int TRI_WIDTH = 30;
     public final int TRI_HEIGHT = 30;
-    public int numObjects = 6;
+    public int numObjects = 1;
     private Timer timer;
     private Figure[] figures;
     private Random rand;
@@ -30,13 +30,13 @@ public class Model extends Observable {
     	figures = new Figure[numObjects];
     	for (int i = 0; i < numObjects; i++) {
     		if (i % 3 == 2) {
-    			figures[i] = new Ball(BALL_SIZE);
-    		}
-    		else if (i % 3 == 1) {
     			figures[i] = new Triangle(TRI_WIDTH, TRI_HEIGHT);
     		}
-    		else {
+    		else if (i % 3 == 1) {
     			figures[i] = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+    		}
+    		else {
+    			figures[i] = new Ball(BALL_SIZE);
     		}
     	}
     	setInitialPositions();
