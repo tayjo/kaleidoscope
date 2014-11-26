@@ -26,7 +26,6 @@ public class Model extends Observable {
     private Random rand;
     
     Model () {
-    	String type;
     	rand = new Random();
     	figures = new Figure[numObjects];
     	for (int i = 0; i < numObjects; i++) {
@@ -81,21 +80,6 @@ public class Model extends Observable {
     
     public Figure getFigure(int element) {
     	return figures[element];
-    }
-    
-    
-    /**
-     * @return The balls X position.
-     */
-    public int getX(int element) {
-        return figures[element].getXPosition();
-    }
-
-    /**
-     * @return The balls Y position.
-     */
-    public int getY(int element) {
-        return figures[element].getYPosition();
     }
     
     /**

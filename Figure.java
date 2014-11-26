@@ -180,6 +180,10 @@ public class Figure {
         }
 	}
 	
+	/**
+     * Returns the figure's type as a String
+     * @return The figure's type
+     */
 	public String getType() {
 		return type;
 	}

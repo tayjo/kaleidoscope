@@ -27,18 +27,19 @@ import javax.swing.event.ChangeListener;
  * @author Josh Taylor
  * @author Ted Fujimoto
  */
+@SuppressWarnings("serial")
 public class Controller extends JFrame {
     JPanel buttonPanel = new JPanel();
     JButton runButton = new JButton("Run");
     JButton stopButton = new JButton("Stop");
     JLabel ballColorLabel = new JLabel("Ball color: ");
-    JComboBox ballColor = new JComboBox(new String[] {"Green", "Red", "Blue"});
+    JComboBox<String> ballColor = new JComboBox<String>(new String[] {"Green", "Red", "Blue"});
     JLabel rectColorLabel = new JLabel("Rectangle color: ");
-    JComboBox rectColor = new JComboBox(new String[] {"Green", "Red", "Blue"});
+    JComboBox<String> rectColor = new JComboBox<String>(new String[] {"Green", "Red", "Blue"});
     JLabel triColorLabel = new JLabel("Triangle color: ");
-    JComboBox triColor = new JComboBox(new String[] {"Green", "Red", "Blue"});
+    JComboBox<String> triColor = new JComboBox<String>(new String[] {"Green", "Red", "Blue"});
     JLabel bgColorLabel = new JLabel("Background color: ");
-    JComboBox bgColor = new JComboBox(new String[] {"White", "Black", "Gray"});
+    JComboBox<String> bgColor = new JComboBox<String>(new String[] {"White", "Black", "Gray"});
     JLabel speedLabel = new JLabel("Speed: ");
     JSlider speedSlider = new JSlider(5, 125);
     Timer timer;
@@ -49,6 +50,10 @@ public class Controller extends JFrame {
     
     /** The View object displays what is happening in the Model. */
     View view;
+    
+    public Controller() {
+    	super("Kaleidoscope");
+    }
     
     /**
      * Runs the bouncing ball program.
@@ -140,24 +145,28 @@ public class Controller extends JFrame {
         ballColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		view.setBallColor(getColor((String) ballColor.getSelectedItem()));
+        		view.repaint();
         	}
         });
         // When the rectangle color combobox is changed, update the color
         rectColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		view.setRectColor(getColor((String) rectColor.getSelectedItem()));
+        		view.repaint();
         	}
         });
         // When the triangle color combobox is changed, update the color
         triColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		view.setTriColor(getColor((String) triColor.getSelectedItem()));
+        		view.repaint();
         	}
         });
         // When the background color combobox is changed, update the color
         bgColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		view.setBgColor(getColor((String) bgColor.getSelectedItem()));
+        		view.repaint();
         	}
         });
         // When the speed slider is changed, update the velocities of the objects

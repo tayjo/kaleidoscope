@@ -51,13 +51,13 @@ public class View extends JPanel implements Observer {
         g.fillRect(0, 0, getWidth(), getHeight());
         for (int i = 0; i < model.numObjects; i++) {
 			thisFigure = model.getFigure(i);
-			if (thisFigure.getType() == "ball") {
+			if (thisFigure.getType().equals("ball")) {
 				g.setColor(ballColor);
 				paintBalls(g, thisFigure);
-			} else if (thisFigure.getType() == "rect") {
+			} else if (thisFigure.getType().equals("rect")) {
 				g.setColor(rectColor);
 				paintRectangle(g, thisFigure);
-			} else if (thisFigure.getType() == "tri") {
+			} else if (thisFigure.getType().equals("tri")) {
 				g.setColor(triColor);
 				paintTriangles(g, thisFigure);
 
@@ -104,10 +104,10 @@ public class View extends JPanel implements Observer {
 		g.fillRect(negX - width, y, width, height);
 		g.fillRect(x, negY - height, width, height);
 		g.fillRect(negX - width, negY - height, width, height);
-		g.fillRect(y, x - width, height, width);
-		g.fillRect(negY - height, x, height, width);
-		g.fillRect(y, negX - width, height, width);
-		g.fillRect(negY - height, negX - width, height, width);
+		g.fillRect(y - height, x - width, height, width);
+		g.fillRect(negY, x - width, height, width);
+		g.fillRect(y - height, negX, height, width);
+		g.fillRect(negY, negX, height, width);
 	}
 
 	/**
@@ -148,16 +148,16 @@ public class View extends JPanel implements Observer {
 	private void drawTriangle(Graphics g, int x, int y, String dir) {
 		int[] xCoords = new int[3];
 		int[] yCoords = new int[3];
-		if (dir == "up") {
+		if (dir.equals("up")) {
 			getUpCoords(x, y, xCoords, yCoords);
 		}
-		else if (dir == "down") {
+		else if (dir.equals("down")) {
 			getDownCoords(x, y, xCoords, yCoords);
 		}
-		else if (dir == "left") {
+		else if (dir.equals("left")) {
 			getLeftCoords(x, y, xCoords, yCoords);
 		}
-		else if (dir == "right") {
+		else if (dir.equals("right")) {
 			getRightCoords(x, y, xCoords, yCoords);
 		}
 		else {
