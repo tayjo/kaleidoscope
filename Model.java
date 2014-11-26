@@ -20,23 +20,24 @@ public class Model extends Observable {
     public final int RECT_HEIGHT = 20;
     public final int TRI_WIDTH = 30;
     public final int TRI_HEIGHT = 30;
-    public int numObjects = 10;
+    public int numObjects = 25;
     private Timer timer;
     private Figure[] figures;
     private Random rand;
     
     Model () {
+    	String type;
     	rand = new Random();
     	figures = new Figure[numObjects];
     	for (int i = 0; i < numObjects; i++) {
     		if (i % 3 == 2) {
-    			figures[i] = new Ball(BALL_SIZE);
+    			figures[i] = new Figure(BALL_SIZE, BALL_SIZE, "ball");
     		}
     		else if (i % 3 == 1) {
-    			figures[i] = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+    			figures[i] = new Figure(RECT_WIDTH, RECT_HEIGHT, "rect");
     		}
     		else {
-    			figures[i] = new Triangle(TRI_WIDTH, TRI_HEIGHT);
+    			figures[i] = new Figure(TRI_WIDTH, TRI_HEIGHT, "tri");
     		}
     	}
     	setInitialPositions();
@@ -48,8 +49,8 @@ public class Model extends Observable {
      */
     private void setInitialPositions() {
     	for (int i = 0; i < numObjects; i++) {
-    		figures[i].setXPosition(rand.nextInt(100));
-    		figures[i].setYPosition(rand.nextInt(100));
+    		figures[i].setXPosition(rand.nextInt(600));
+    		figures[i].setYPosition(rand.nextInt(600));
     	}
     }
     
@@ -58,8 +59,10 @@ public class Model extends Observable {
      */
     private void setInitialVelocities() {
     	for (int i = 0; i < numObjects; i++) {
-    		figures[i].setXDelta(rand.nextInt(10) + 1);
-    		figures[i].setYDelta(rand.nextInt(10) + 1);
+    		figures[i].setInitXDelta(rand.nextInt(5) + 1);
+    		figures[i].setXDelta(figures[i].getInitXDelta());
+    		figures[i].setInitYDelta(rand.nextInt(5) + 1);
+    		figures[i].setYDelta(figures[i].getInitYDelta());
     	}
     }
     
@@ -134,5 +137,20 @@ public class Model extends Observable {
         public void run() {
             makeOneStep();
         }
+    }
+    
+    /**
+     * Sets new velocities
+     */
+    public void changeVelocity(float speedFactor) {
+    	int xDelta, yDelta, xDelta0, yDelta0;
+    	for (int i = 0; i < numObjects; i++) {
+    		xDelta = figures[i].getXDelta();
+    		yDelta = figures[i].getYDelta();
+    		xDelta0 = figures[i].getInitXDelta();
+    		yDelta0 = figures[i].getInitYDelta();
+    		figures[i].setXDelta((int) (Math.signum(xDelta) * Math.ceil(speedFactor * xDelta0)));
+    		figures[i].setYDelta((int) (Math.signum(yDelta) * Math.ceil(speedFactor * yDelta0)));
+    	}
     }
 }

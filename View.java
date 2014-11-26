@@ -15,10 +15,15 @@ import javax.swing.JPanel;
  * @author Josh Taylor
  * @author Ted Fujimoto
  */
+@SuppressWarnings("serial")
 public class View extends JPanel implements Observer {
     
     /** This is what we will be observing. */
     Model model;
+    Color ballColor;
+    Color rectColor;
+    Color triColor;
+    Color bgColor;
 
     /**
      * Constructor.
@@ -26,6 +31,10 @@ public class View extends JPanel implements Observer {
      */
     View(Model model) {
         this.model = model;
+        ballColor = Color.green;
+        rectColor = Color.green;
+        triColor = Color.green;
+        bgColor = Color.WHITE;
     }
 
     /**
@@ -38,23 +47,19 @@ public class View extends JPanel implements Observer {
     @Override
     public void paint(Graphics g) {
     	Figure thisFigure;
-    	Ball ball;
-    	Rectangle rect;
-    	Triangle tri;
-        g.setColor(Color.WHITE);
+        g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.red);
         for (int i = 0; i < model.numObjects; i++) {
 			thisFigure = model.getFigure(i);
-			if (thisFigure instanceof Ball) {
-				ball = (Ball) thisFigure;
-				paintBalls(g, ball);
-			} else if (thisFigure instanceof Rectangle) {
-				rect = (Rectangle) thisFigure;
-				paintRectangle(g, rect);
-			} else if (thisFigure instanceof Triangle) {
-				tri = (Triangle) thisFigure;
-				paintTriangles(g, tri);
+			if (thisFigure.getType() == "ball") {
+				g.setColor(ballColor);
+				paintBalls(g, thisFigure);
+			} else if (thisFigure.getType() == "rect") {
+				g.setColor(rectColor);
+				paintRectangle(g, thisFigure);
+			} else if (thisFigure.getType() == "tri") {
+				g.setColor(triColor);
+				paintTriangles(g, thisFigure);
 
 			}
 		}
@@ -66,7 +71,7 @@ public class View extends JPanel implements Observer {
 	 * @param g The Graphics on which to paint things.
 	 * @param ball The Ball object to be painted (and reflected)
 	 */
-	private void paintBalls(Graphics g, Ball ball) {
+	private void paintBalls(Graphics g, Figure ball) {
 		int x = ball.getXPosition();
 		int y = ball.getYPosition();
 		int negX = getNegativeX(x);
@@ -86,9 +91,9 @@ public class View extends JPanel implements Observer {
 	 * Paints the 8 different copies of the rectangle
 	 *
 	 * @param g The Graphics on which to paint things.
-	 * @param rectangle The Ball object to be painted (and reflected)
+	 * @param rectangle The Rectangle object to be painted (and reflected)
 	 */
-	private void paintRectangle(Graphics g, Rectangle rectangle) {
+	private void paintRectangle(Graphics g, Figure rectangle) {
 		int x = rectangle.getXPosition();
 		int y = rectangle.getYPosition();
 		int negX = getNegativeX(x);
@@ -111,7 +116,7 @@ public class View extends JPanel implements Observer {
 	 * @param g The Graphics on which to paint things.
 	 * @param tri The Triangle object to be painted (and reflected)
 	 */
-	private void paintTriangles(Graphics g, Triangle tri) {
+	private void paintTriangles(Graphics g, Figure tri) {
 		int x = tri.getXPosition();
 		int y = tri.getYPosition();
 		int negX = getNegativeX(x);
@@ -276,5 +281,41 @@ public class View extends JPanel implements Observer {
 	@Override
 	public void update(Observable obs, Object arg) {
 		repaint();
+	}
+	
+	/**
+	 * Changes the color to use when painting balls
+	 *
+	 * @param color The color to use for balls.
+	 */
+	public void setBallColor(Color color) {
+		ballColor = color;
+	}
+	
+	/**
+	 * Changes the color to use when painting rectangles
+	 *
+	 * @param color The color to use for rectangles.
+	 */
+	public void setRectColor(Color color) {
+		rectColor = color;
+	}
+	
+	/**
+	 * Changes the color to use when painting triangles
+	 *
+	 * @param color The color to use for triangles.
+	 */
+	public void setTriColor(Color color) {
+		triColor = color;
+	}
+	
+	/**
+	 * Changes the background color
+	 *
+	 * @param color The color to use for background.
+	 */
+	public void setBgColor(Color color) {
+		bgColor = color;
 	}
 }

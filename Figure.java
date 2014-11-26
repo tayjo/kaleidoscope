@@ -1,12 +1,23 @@
 package kaleidoscope;
 
-public abstract class Figure {
+public class Figure {
 	private int xPosition;
 	private int yPosition;
 	private int xLimit;
 	private int yLimit;
 	private int xDelta;
 	private int yDelta;
+	private int xDelta0;
+	private int yDelta0;
+	private int width;
+	private int height;
+	private String type;
+	
+	Figure(int width, int height, String type) {
+		this.width = width;
+		this.height = height;
+		this.type = type;
+	}
 	
     /**
      * Setter for xPosition
@@ -57,6 +68,22 @@ public abstract class Figure {
 	}
 
     /**
+     * Setter for xDelta0
+     * @param xDel The initial x velocity of the figure.
+     */
+	public void setInitXDelta(int xDel0) {
+		xDelta0 = xDel0;
+	}
+
+    /**
+     * Getter for xDelta0
+     * @return The initial x velocity of the figure.
+     */
+	public int getInitXDelta() {
+		return xDelta0;
+	}
+
+    /**
      * Setter for yDelta
      * @param yDel The y velocity of the figure.
      */
@@ -70,6 +97,22 @@ public abstract class Figure {
      */
 	public int getYDelta(){
 		return yDelta;
+	}
+
+    /**
+     * Setter for yDelta0
+     * @param yDel The initial y velocity of the figure.
+     */
+	public void setInitYDelta(int yDel0) {
+		yDelta0 = yDel0;
+	}
+
+    /**
+     * Getter for yDelta0
+     * @return The initial y velocity of the figure.
+     */
+	public int getInitYDelta() {
+		return yDelta0;
 	}
 
     /**
@@ -122,7 +165,22 @@ public abstract class Figure {
 	}
 	
 	/**
-     * Abstract method for setLimits
+     * Sets the appropriate x and y limits for the figure based on its size
+     * @param xLimit The maximum allowed x value for the display
+     * @param yLimit The maximum alloewd y value for the display
      */
-	public void setLimits(int xLimit, int yLimit){}	
+	public void setLimits(int xLimit, int yLimit) {
+        setXLimit(xLimit - width);
+        setYLimit(yLimit - height);
+        for (int x = 0; x < getXPosition(); x++) {
+        	setXPosition(Math.min(getXPosition(), getXLimit()));
+        }
+        for (int y = 0; y < getYPosition(); y++) {
+        	setYPosition(Math.min(getYPosition(), getYLimit()));
+        }
+	}
+	
+	public String getType() {
+		return type;
+	}
 }
