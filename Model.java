@@ -8,7 +8,9 @@ import java.util.TimerTask;
 /**
  * This is the Model class for a kaleidoscope. It is an Observable,
  * which means that it can notifyObservers that something in the
- * model has changed, and they should take appropriate actions.
+ * model has changed, and they should take appropriate actions. It
+ * contains an array of objects that have varying positions, speeds
+ * and types.
  * 
  * @author David Matuszek
  * @author Josh Taylor

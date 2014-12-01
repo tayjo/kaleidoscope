@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 
 /**
  * The View "observes" and displays what is going on in the Model.
- * In this example, the Model contains only a single bouncing ball.
+ * In this example, the Model contains some number of figures (balls,
+ * rectangles and triangles) bouncing around a confined area.
  * 
  * @author David Matuszek
  * @author Josh Taylor

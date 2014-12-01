@@ -1,5 +1,18 @@
 package kaleidoscope;
 
+/**
+ * Each Figure represents a moving object, with an x & y position,
+ * an x & y speed, a width, a height and a type. It can be one of any type,
+ * but the only ones currently recognized by the View are "ball",
+ * "rectangle" and "triangle". We also store the initial speed of the
+ * object for speed scaling, and the upper bounds of allowable x & y
+ * positions for the object.
+ * 
+ * @author David Matuszek
+ * @author Josh Taylor
+ * @author Ted Fujimoto
+ */
+
 public class Figure {
 	private int xPosition;
 	private int yPosition;
@@ -173,7 +186,7 @@ public class Figure {
 	/**
      * Sets the appropriate x and y limits for the figure based on its size
      * @param xLimit The maximum allowed x value for the display
-     * @param yLimit The maximum alloewd y value for the display
+     * @param yLimit The maximum allowed y value for the display
      */
 	public void setLimits(int xLimit, int yLimit) {
         setXLimit(xLimit - width);
