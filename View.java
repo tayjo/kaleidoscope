@@ -21,6 +21,9 @@ public class View extends JPanel implements Observer {
     
     /** This is what we will be observing. */
     Model model;
+    Color GREEN = Color.green.darker();
+    Color RED = Color.red.darker();
+    Color BLUE = Color.blue.darker();
     Color ballColor;
     Color rectColor;
     Color triColor;
@@ -32,10 +35,10 @@ public class View extends JPanel implements Observer {
      */
     View(Model model) {
         this.model = model;
-        ballColor = Color.green;
-        rectColor = Color.green;
-        triColor = Color.green;
-        bgColor = Color.WHITE;
+        ballColor = GREEN;
+        rectColor = BLUE;
+        triColor = RED;
+        bgColor = Color.BLACK;
     }
 
     /**
@@ -289,8 +292,8 @@ public class View extends JPanel implements Observer {
 	 *
 	 * @param color The color to use for balls.
 	 */
-	public void setBallColor(Color color) {
-		ballColor = color;
+	public void setBallColor(String colorString) {
+		ballColor = getColor(colorString);
 	}
 	
 	/**
@@ -298,8 +301,8 @@ public class View extends JPanel implements Observer {
 	 *
 	 * @param color The color to use for rectangles.
 	 */
-	public void setRectColor(Color color) {
-		rectColor = color;
+	public void setRectColor(String colorString) {
+		rectColor = getColor(colorString);
 	}
 	
 	/**
@@ -307,8 +310,8 @@ public class View extends JPanel implements Observer {
 	 *
 	 * @param color The color to use for triangles.
 	 */
-	public void setTriColor(Color color) {
-		triColor = color;
+	public void setTriColor(String colorString) {
+		triColor = getColor(colorString);
 	}
 	
 	/**
@@ -316,7 +319,34 @@ public class View extends JPanel implements Observer {
 	 *
 	 * @param color The color to use for background.
 	 */
-	public void setBgColor(Color color) {
-		bgColor = color;
+	public void setBgColor(String colorString) {
+		bgColor = getColor(colorString);
 	}
+
+    /**
+     * Accepts a string of a color name and returns the
+     * corresponding Color object. Defaults to Color.WHITE
+     * @param colorString The string of the color's name
+     * @return The Color object corresponding to the color name
+     */
+    private Color getColor(String colorString) {
+    	if (colorString.toLowerCase().equals("green")) {
+    		return GREEN;
+    	}
+    	else if (colorString.toLowerCase().equals("blue")) {
+    		return BLUE;
+    	}
+    	else if (colorString.toLowerCase().equals("red")) {
+    		return RED;
+    	}
+    	else if (colorString.toLowerCase().equals("black")) {
+    		return Color.BLACK;
+    	}
+    	else if (colorString.toLowerCase().equals("gray")) {
+    		return Color.gray;
+    	}
+    	else {
+    		return Color.WHITE;
+    	}
+    }
 }

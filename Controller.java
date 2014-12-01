@@ -7,7 +7,6 @@ package kaleidoscope;
 
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,10 +98,13 @@ public class Controller extends JFrame {
         buttonPanel.add(stopButton);
         buttonPanel.add(ballColorLabel);
         buttonPanel.add(ballColor);
+        rectColor.setSelectedItem("Blue");
         buttonPanel.add(rectColorLabel);
         buttonPanel.add(rectColor);
+        triColor.setSelectedItem("Red");
         buttonPanel.add(triColorLabel);
         buttonPanel.add(triColor);
+        bgColor.setSelectedItem("Black");
         buttonPanel.add(bgColorLabel);
         buttonPanel.add(bgColor);
         buttonPanel.add(speedLabel);
@@ -147,28 +149,28 @@ public class Controller extends JFrame {
         // When the ball color combobox is changed, update the color
         ballColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		view.setBallColor(getColor((String) ballColor.getSelectedItem()));
+        		view.setBallColor((String) ballColor.getSelectedItem());
         		view.repaint();
         	}
         });
         // When the rectangle color combobox is changed, update the color
         rectColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		view.setRectColor(getColor((String) rectColor.getSelectedItem()));
+        		view.setRectColor((String) rectColor.getSelectedItem());
         		view.repaint();
         	}
         });
         // When the triangle color combobox is changed, update the color
         triColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		view.setTriColor(getColor((String) triColor.getSelectedItem()));
+        		view.setTriColor((String) triColor.getSelectedItem());
         		view.repaint();
         	}
         });
         // When the background color combobox is changed, update the color
         bgColor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		view.setBgColor(getColor((String) bgColor.getSelectedItem()));
+        		view.setBgColor((String) bgColor.getSelectedItem());
         		view.repaint();
         	}
         });
@@ -178,33 +180,6 @@ public class Controller extends JFrame {
         		model.changeVelocity(((float) speedSlider.getValue()) / 25);
         	}
         });
-    }
-
-    /**
-     * Accepts a string of a color name and returns the
-     * corresponding Color object. Defaults to Color.WHITE
-     * @param colorString The string of the color's name
-     * @return The Color object corresponding to the color name
-     */
-    private Color getColor(String colorString) {
-    	if (colorString.toLowerCase().equals("green")) {
-    		return Color.green;
-    	}
-    	else if (colorString.toLowerCase().equals("blue")) {
-    		return Color.blue;
-    	}
-    	else if (colorString.toLowerCase().equals("red")) {
-    		return Color.red;
-    	}
-    	else if (colorString.toLowerCase().equals("black")) {
-    		return Color.BLACK;
-    	}
-    	else if (colorString.toLowerCase().equals("gray")) {
-    		return Color.gray;
-    	}
-    	else {
-    		return Color.WHITE;
-    	}
     }
 
 }

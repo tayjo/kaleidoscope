@@ -17,7 +17,7 @@ import java.util.TimerTask;
  * @author Ted Fujimoto
  */
 public class Model extends Observable {
-    public final int BALL_SIZE = 50;
+    public final int BALL_SIZE = 100;
     public final int RECT_WIDTH = 200;
     public final int RECT_HEIGHT = 100;
     public final int TRI_WIDTH = 150;
