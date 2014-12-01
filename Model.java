@@ -25,6 +25,9 @@ public class Model extends Observable {
     private Figure[] figures;
     private Random rand;
     
+    /**
+     * Constructor
+     */
     Model () {
     	rand = new Random();
     	figures = new Figure[numObjects];
@@ -77,7 +80,12 @@ public class Model extends Observable {
         }
     }
 
-    
+    /**
+     * Accepts an element index number and returns the
+     * figure corresponding to that index in the figures array
+     * @param element The index number of the desired figure
+     * @return The requested figure object
+     */
     public Figure getFigure(int element) {
     	return figures[element];
     }

@@ -13,6 +13,12 @@ public class Figure {
 	private int height;
 	private String type;
 	
+	/**
+     * Constructor
+     * @param width The width of the figure
+     * @param height The height of the figure
+     * @param type The type of the figure
+     */
 	Figure(int width, int height, String type) {
 		this.width = width;
 		this.height = height;

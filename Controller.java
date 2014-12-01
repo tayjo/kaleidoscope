@@ -51,6 +51,9 @@ public class Controller extends JFrame {
     /** The View object displays what is happening in the Model. */
     View view;
     
+    /**
+     * Constructor
+     */
     public Controller() {
     	super("Kaleidoscope");
     }
@@ -177,6 +180,12 @@ public class Controller extends JFrame {
         });
     }
 
+    /**
+     * Accepts a string of a color name and returns the
+     * corresponding Color object. Defaults to Color.WHITE
+     * @param colorString The string of the color's name
+     * @return The Color object corresponding to the color name
+     */
     private Color getColor(String colorString) {
     	if (colorString.toLowerCase().equals("green")) {
     		return Color.green;
