@@ -15,12 +15,12 @@ import java.util.TimerTask;
  * @author Ted Fujimoto
  */
 public class Model extends Observable {
-    public final int BALL_SIZE = 20;
-    public final int RECT_WIDTH = 40;
-    public final int RECT_HEIGHT = 20;
-    public final int TRI_WIDTH = 30;
-    public final int TRI_HEIGHT = 30;
-    public int numObjects = 25;
+    public final int BALL_SIZE = 50;
+    public final int RECT_WIDTH = 200;
+    public final int RECT_HEIGHT = 100;
+    public final int TRI_WIDTH = 150;
+    public final int TRI_HEIGHT = 150;
+    public int numObjects = 15;
     private Timer timer;
     private Figure[] figures;
     private Random rand;
